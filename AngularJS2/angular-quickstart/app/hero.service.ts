@@ -10,7 +10,7 @@ export class HeroService {
 
     getHeroesSlowly(): Promise<Hero[]> {
         return new Promise<Hero[]>(resolve =>
-            setTimeout(resolve, 10000)) // delay 10 seconds
+            setTimeout(resolve, 100)) // delay 10 seconds
             .then(() => this.getHeroes());
     }
 }
