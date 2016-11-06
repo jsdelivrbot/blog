@@ -21,7 +21,7 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.getHeroes = function () {
         var _this = this;
-        this.heroservice.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
+        this.heroservice.getHeroesSlowly().then(function (heroes) { return _this.heroes = heroes; });
         //this.heroes = this.heroservice.getHeroes();
     };
     AppComponent.prototype.ngOnInit = function () {
