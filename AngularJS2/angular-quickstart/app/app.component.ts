@@ -2,12 +2,8 @@
  * Created by Administrator on 2016/10/28 0028.
  */
 import { Component } from '@angular/core';
+import { Hero } from './hero'
 
-/*英雄类*/
-export class Hero{
-    id : number;
-    name : string;
-};
 
 const HEROS : Hero[] =  [
     { id: 11, name: 'Mr. Nice' },
@@ -24,19 +20,8 @@ const HEROS : Hero[] =  [
 
 @Component({
     selector: 'my-app',
-    template: `
-    <div *ngIf="selectedhero">
-        <h1>{{title}}</h1>
-        <h2>{{selectedhero.name}}</h2>
-        <div>
-            <label >id:</label>{{selectedhero.id}}
-        </div>
-        <div>
-            <label >name:</label>
-            <input [(ngModel)] = "selectedhero.name">
-        </div>
-    </div>
-    
+    template: `   
+    <my-hero-detail [hero] = "selectedhero"></my-hero-detail>
     <h2>My heroes</h2>
     <ul class="heroes">
         <li *ngFor="let hero of heroes" 
@@ -103,7 +88,7 @@ const HEROS : Hero[] =  [
 
 export class AppComponent {
     title = 'Tour of Heroes';
-    selectedhero : Hero;
+    selectedhero : Hero = {id : 388223,name : "wenbaofu"};
     heroes : Hero[] = HEROS;    
 
     onSelect(hero : Hero) : void {
