@@ -1,1 +1,3 @@
-alert('hi');
+var test = window.location.search;
+alert(test);
+
