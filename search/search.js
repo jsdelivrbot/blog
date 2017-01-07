@@ -309,12 +309,11 @@ function getParameterByName(name) {
 }
 
 var myHilitor; // global variable
-document.addEventListener("DOMContentLoaded", function(e) {
+window.onload = function(){
     myHilitor = new Hilitor();
     var querystring = getParameterByName("query");
     myHilitor.apply(querystring);
-  }, false);
-
+}
 
 
 
