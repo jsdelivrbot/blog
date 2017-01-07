@@ -1,7 +1,7 @@
 document.write("<script language=javascript src=''></script>");
 new_element=document.createElement("script");
 new_element.setAttribute("type","text/javascript");
-new_element.setAttribute("src","https://rawgit.com/GerHobbelt/hilitor/master/hilitor-utf8.js");
+new_element.setAttribute("src","https://rawgit.com/wenbaofu/blog/blob/master/search/hilitor-utf8.js");
 document.body.appendChild(new_element);
 
 function getParameterByName(name) {
