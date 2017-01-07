@@ -397,6 +397,8 @@ window.onload = function(){
             navEl.style.display="inline";
             navPre.disabled=true;
             navNext.disabled=false;
+            //首次展现的时候就出现在第一个匹配的地方
+            doNav(1);
         }
         else
         {
