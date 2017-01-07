@@ -11,6 +11,7 @@ var myHilitor; // global variable
 document.addEventListener("DOMContentLoaded", function(e) {
     myHilitor = new Hilitor();
     var querystring = getParameterByName("query");
+    alert(querystring);
     myHilitor.apply(querystring);
   }, false);
 
