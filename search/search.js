@@ -308,11 +308,143 @@ function getParameterByName(name) {
     return results == null ? "": decodeURIComponent(results[1]);
 }
 
-var myHilitor; // global variable
+function displayNavigation()
+{
+    matchArr=document.getElementsByTagName("EM");
+    var countText=matchArr.length +" match"
+    if(matchArr.length!=1)
+    countText+="es";
+    counterEl.innerHTML=countText;
+    matchIndex=-1;
+    if(matchArr.length)
+    {
+        navEl.style.display="inline";
+        navPre.disabled=true;
+        navNext.disabled=false;
+    }
+    else
+    {
+        navEl.style.display="none";
+    }
+}
+
+function createNavigation()
+{
+    var small = document.createElement("small");
+    var spanCounter = document.createElement("span");
+    spanCounter.id = "counter";
+    spanCounter.style = "color: red;";
+    spanCounter.textContent = "match";
+    small.appendChild(spanCounter);
+
+    var spanNavigate = document.createElement("span");
+    spanNavigate.id = "navigate";
+    spanNavigate.style = "display: inline;";
+    small.appendChild(spanNavigate);
+
+    var btncancel = document.createElement("button");
+    btncancel.id = "cancel";
+    btncancel.textContent = "x";
+    spanNavigate.appendChild(btncancel);
+
+    var btnprev = document.createElement("button");
+    btnprev.id = "prev";
+    btnprev.textContent = "<<";
+    btnprev.disabled = true;
+    spanNavigate.appendChild(btnprev);
+
+    var btnnext = document.createElement("button");
+    btnnext.id = "next";
+    btnnext.textContent = ">>";
+    spanNavigate.appendChild(btnnext);
+    
+    document.body.insertBefore(small,document.body.firstChild);
+};
+
 window.onload = function(){
-    myHilitor = new Hilitor();
+
+    //创建导航栏
+    createNavigation();
+    
+
+    //执行高亮动作
+    var myHilitor = new Hilitor();
+    myHilitor.setMatchType("left");
     var querystring = getParameterByName("query");
     myHilitor.apply(querystring);
+
+
+    var matchIndex=-1;
+    var matchArr=[];
+
+    var counterEl=document.getElementById("counter");
+    var navEl=document.getElementById("navigate");
+    var navPre=document.getElementById("prev");
+    var navNext=document.getElementById("next");
+    var navCancel=document.getElementById("cancel");
+
+
+    var displayNavigation=function()
+    {
+        matchArr=document.getElementsByTagName("EM");
+        var countText=matchArr.length +" match"
+        if(matchArr.length!=1)
+        countText+="es";
+        counterEl.innerHTML=countText;
+        matchIndex=-1;
+        if(matchArr.length)
+        {
+            navEl.style.display="inline";
+            navPre.disabled=true;
+            navNext.disabled=false;
+        }
+        else
+        {
+            navEl.style.display="none";
+        }
+    };
+    displayNavigation();
+
+    var doNav=function(offset)
+    {
+        matchIndex+=offset;
+        matchIndex=matchIndex%matchArr.length;
+        matchArr[matchIndex].scrollIntoView(true);
+        for(var i=0;i<matchArr.length;i++)
+        {
+            matchArr[i].style.outline=(matchIndex==i)?"2px solid rgba(204,0,0,0.5)":"";
+        }
+        if(matchArr.length)
+        {
+            navEl.style.display="inline";
+            navPre.disabled=(matchIndex<=0);
+            navNext.disabled=(matchIndex>=matchArr.length-1);
+        }
+        else
+        {
+            navEl.style.display="none";
+        }
+    };
+
+    navPre.addEventListener("click",function(e)
+    {
+        doNav(-1);
+        e.preventDefault();
+    },false);
+
+    navNext.addEventListener("click",function(e)
+    {
+        doNav(1);
+        e.preventDefault();
+    },false);
+
+    navCancel.addEventListener("click",function(e)
+    {
+        
+    },false);
+    
+
+    
 }
 
 
