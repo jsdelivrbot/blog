@@ -312,7 +312,7 @@ function createNavigation()
 {
     var divSuspended = document.createElement("div");
     divSuspended.id = "divSuspended";
-    divSuspended.style = "position: fixed; buttom: 0px; right: 0px; color: #cccccc; width: 150px; height: 25px; background-color: yellowgreen";
+    divSuspended.style = "position: fixed; right: 0px; color: #cccccc; width: 180px; height: 25px; background-color: yellowgreen";
 
     var small = document.createElement("small");
     divSuspended.appendChild(small);
@@ -349,16 +349,16 @@ function createNavigation()
 window.onscroll = function () 
 { 
     var div = document.getElementById("divSuspended");
-    div.style.top = document.body.scrollTop;
+    //div.style.top = document.body.scrollTop;
 }   
 
-window.onresize = window.onscroll; 
+//window.onresize = window.onscroll; 
 
 window.onload = function(){
 
     //创建导航栏
     createNavigation();
-    window.onscroll();
+    //window.onscroll();
 
     //执行高亮动作
     var myHilitor = new Hilitor();
@@ -383,7 +383,14 @@ window.onload = function(){
 
         var countText= (matchIndex+1) + "/" + matchArr.length +" match"
         if(matchArr.length > 1)
-        countText+="es";
+        {
+            countText+="es ";
+        }
+        else
+        {
+            countText+=" ";
+        }
+
         counterEl.innerHTML=countText;
 
         for(var i=0;i<matchArr.length;i++)
