@@ -380,6 +380,12 @@ window.onload = function(){
         matchIndex+=offset;
         matchIndex=matchIndex%matchArr.length;
         matchArr[matchIndex].scrollIntoView(true);
+
+        var countText= (matchIndex+1) + "/" + matchArr.length +" match"
+        if(matchArr.length > 1)
+        countText+="es";
+        counterEl.innerHTML=countText;
+
         for(var i=0;i<matchArr.length;i++)
         {
             matchArr[i].style.outline=(matchIndex==i)?"2px solid rgba(204,0,0,0.5)":"";
@@ -399,10 +405,6 @@ window.onload = function(){
     var displayNavigation=function()
     {
         matchArr=document.getElementsByTagName("EM");
-        var countText=matchArr.length +" match"
-        if(matchArr.length > 1)
-        countText+="es";
-        counterEl.innerHTML=countText;
         matchIndex=-1;
         if(matchArr.length)
         {
@@ -433,7 +435,8 @@ window.onload = function(){
 
     navCancel.addEventListener("click",function(e)
     {
-        
+        var div = document.getElementById("divSuspended");
+        div.style.display = "none";
     },false);    
 }
 
