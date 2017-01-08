@@ -343,6 +343,7 @@ function createNavigation()
     btnnext.id = "next";
     btnnext.textContent = ">>";
     spanNavigate.appendChild(btnnext);
+    document.body.insertBefore(divSuspended,document.body.firstChild);
 };
 
 window.onscroll = function () 
@@ -350,7 +351,7 @@ window.onscroll = function ()
     var div = document.getElementById("divSuspended");
     div.style.top = document.body.scrollTop;
 }  
-window.onresize = window.onscroll;  
+window.onresize = window.onscroll; 
 
 window.onload = function(){
 
@@ -432,11 +433,10 @@ window.onload = function(){
     navCancel.addEventListener("click",function(e)
     {
         
-    },false);
-    
-
-    
+    },false);    
 }
+
+ 
 
 
 
