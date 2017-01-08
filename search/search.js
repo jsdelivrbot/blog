@@ -330,18 +330,18 @@ function createNavigation()
 
     var btncancel = document.createElement("button");
     btncancel.id = "cancel";
-    btncancel.textContent = "x";
+    btncancel.textContent = "✘";
     spanNavigate.appendChild(btncancel);
 
     var btnprev = document.createElement("button");
     btnprev.id = "prev";
-    btnprev.textContent = "<<";
+    btnprev.textContent = "▲";
     btnprev.disabled = true;
     spanNavigate.appendChild(btnprev);
 
     var btnnext = document.createElement("button");
     btnnext.id = "next";
-    btnnext.textContent = ">>";
+    btnnext.textContent = "▼";
     spanNavigate.appendChild(btnnext);
     document.body.insertBefore(divSuspended,document.body.firstChild);
 };
