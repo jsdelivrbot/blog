@@ -308,29 +308,15 @@ function getParameterByName(name) {
     return results == null ? "": decodeURIComponent(results[1]);
 }
 
-function displayNavigation()
-{
-    matchArr=document.getElementsByTagName("EM");
-    var countText=matchArr.length +" match"
-    if(matchArr.length!=1)
-    countText+="es";
-    counterEl.innerHTML=countText;
-    matchIndex=-1;
-    if(matchArr.length)
-    {
-        navEl.style.display="inline";
-        navPre.disabled=true;
-        navNext.disabled=false;
-    }
-    else
-    {
-        navEl.style.display="none";
-    }
-}
-
 function createNavigation()
 {
+    var divSuspended = document.createElement("div");
+    divSuspended.id = "divSuspended";
+    divSuspended.style = "position: absolute; buttom: 0px; right: 0px; color: #cccccc; width: 150px; height: 20px; background-color: #cccccc";
+
     var small = document.createElement("small");
+    divSuspended.appendChild(small);
+
     var spanCounter = document.createElement("span");
     spanCounter.id = "counter";
     spanCounter.style = "color: red;";
@@ -357,15 +343,20 @@ function createNavigation()
     btnnext.id = "next";
     btnnext.textContent = ">>";
     spanNavigate.appendChild(btnnext);
-    
-    document.body.insertBefore(small,document.body.firstChild);
 };
+
+window.onscroll = function () 
+{ 
+    var div = document.getElementById("divSuspended");
+    div.style.top = document.body.scrollTop;
+}  
+window.onresize = window.onscroll;  
 
 window.onload = function(){
 
     //创建导航栏
     createNavigation();
-    
+    window.onscroll();
 
     //执行高亮动作
     var myHilitor = new Hilitor();
