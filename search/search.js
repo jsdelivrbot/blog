@@ -361,6 +361,7 @@ function createNavigation()
     document.body.insertBefore(small,document.body.firstChild);
 };
 
+var myHilitor;
 window.onload = function(){
 
     //创建导航栏
@@ -368,7 +369,7 @@ window.onload = function(){
     
 
     //执行高亮动作
-    var myHilitor = new Hilitor();
+    myHilitor = new Hilitor();
     myHilitor.setMatchType("left");
     var querystring = getParameterByName("query");
     myHilitor.apply(querystring);
@@ -408,7 +409,7 @@ window.onload = function(){
     {
         matchArr=document.getElementsByTagName("EM");
         var countText=matchArr.length +" match"
-        if(matchArr.length!=1)
+        if(matchArr.length > 1)
         countText+="es";
         counterEl.innerHTML=countText;
         matchIndex=-1;
