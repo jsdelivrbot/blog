@@ -361,7 +361,6 @@ function createNavigation()
     document.body.insertBefore(small,document.body.firstChild);
 };
 
-var myHilitor;
 window.onload = function(){
 
     //创建导航栏
@@ -369,8 +368,7 @@ window.onload = function(){
     
 
     //执行高亮动作
-    myHilitor = new Hilitor();
-    myHilitor.setMatchType("left");
+    var myHilitor = new Hilitor();
     var querystring = getParameterByName("query");
     myHilitor.apply(querystring);
 
