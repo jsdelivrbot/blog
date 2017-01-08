@@ -312,7 +312,7 @@ function createNavigation()
 {
     var divSuspended = document.createElement("div");
     divSuspended.id = "divSuspended";
-    divSuspended.style = "position: absolute; buttom: 0px; right: 0px; color: #cccccc; width: 150px; height: 20px; background-color: #cccccc";
+    divSuspended.style = "position: fixed; buttom: 0px; right: 0px; color: #cccccc; width: 150px; height: 20px; background-color: #cccccc";
 
     var small = document.createElement("small");
     divSuspended.appendChild(small);
@@ -350,7 +350,8 @@ window.onscroll = function ()
 { 
     var div = document.getElementById("divSuspended");
     div.style.top = document.body.scrollTop;
-}  
+}   
+
 window.onresize = window.onscroll; 
 
 window.onload = function(){
