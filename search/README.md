@@ -3,6 +3,7 @@
 ### 使用说明
 
 Step1：从chrome商店安装AddJS： https://chrome.google.com/webstore/detail/addjs/aoahkpekljaimojhfefaiibfdcnmlhdi?hl=zh-CN
+
 Step2: 点击"+" 配置AddJS,举例
 ```
 url：https://github.com/wenbaofu*
