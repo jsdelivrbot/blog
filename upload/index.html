@@ -74,5 +74,11 @@ $("#file-5").on('filepreremove', function(id, idx) {
     $("td:contains("  + str + ")").parent().remove();
 
 });
+
+$("#file-5").on('fileclear', function() {
+    
+     $("#fileInfo tr:gt(0)").remove();
+
+});
 </script>
 </html>
