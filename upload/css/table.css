@@ -1,0 +1,61 @@
+.mylist  
+{  
+
+    width: auto;  
+
+    height:auto;  
+
+    border:1px solid #accdf4;  
+
+    margin-top:10px;  
+
+    font-family:"宋体";  
+
+    font-size:12px;  
+
+    color:#155c9f;  
+
+    text-align:center;  
+
+    border-collapse: collapse;  
+
+}  
+
+.mylist th  
+{  
+
+    background-color:#d0e4ff;  
+
+    text-align:center;  
+
+    border:1px solid #accdf4;   
+
+    border-right:1px solid #accdf4;   
+
+    border-bottom:1px solid #accdf4;  
+
+    text-align:center;  
+
+    height:25px;  
+
+    line-height:25px;  
+
+    width:100px;  
+
+}  
+
+.mylist td  
+{  
+    border:1px solid #accdf4; 
+
+    border-right:1px solid #accdf4;   
+
+    text-align:center;  
+
+    height:25px;  
+
+    line-height:25px;  
+
+    width:100px;  
+
+} 
