@@ -1,0 +1,14 @@
+{
+   "name": "server",
+   "description": "file server",
+   "version": "0.0.1",
+   "scripts":{
+       "start": "concurrently \"node server.js\" "
+   },
+   "dependencies": {
+      "express": "3.x"
+   },
+   "devDependencies": {
+      "concurrently": "^2.0.0"
+   }
+}
