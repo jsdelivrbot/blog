@@ -47,8 +47,8 @@
 
 <script>    
 $("#file-5").fileinput({
-        language: 'zh',
-        uploadUrl: 'http://127.0.0.1:3000/file', // server upload action
+        language: 'zh',//设置显示语言为中文，需要在script中引入中文脚本
+        uploadUrl: 'http://127.0.0.1:3000/file', // 设置上传的服务端地址
         uploadAsync: true,
         'allowedFileExtensions': ['pdf', 'mp4'],
         showBrowse: false,

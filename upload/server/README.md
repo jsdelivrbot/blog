@@ -8,7 +8,7 @@ npm install
 ```
 * 运行程序
 ```
-npm run start
+npm start
 ```
 
 
