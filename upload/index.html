@@ -58,7 +58,8 @@ $("#file-5").on('fileloaded', function(event, file, previewId, index) {
     //alert('i = ' + index + event + ', id = ' + previewId + ', file = ' + file.name);
     var row = $("<tr></tr>");
     var table = $("#fileInfo");
-    var str = "<input type=\"text\" multiple>";
+    //将单行文本输入变成多行输入
+    var str = "<textarea></textarea>";
     row.append($("<td></td>").html(file.name));
     row.append($("<td></td>").html((file.size/(1024*1024)).toFixed(2)+"M"));
     var time = new Date( file.lastModified );

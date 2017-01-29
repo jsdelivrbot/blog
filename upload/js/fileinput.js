@@ -2226,7 +2226,8 @@
             self._initSortable();
         },
         _slugDefault: function (text) {
-            return isEmpty(text) ? '' : String(text).replace(/[\-\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
+            //return isEmpty(text) ? '' : String(text).replace(/[\-\[\]\/\{}:;#%=\(\)\*\+\?\\\^\$\|<>&"']/g, '_');
+            return isEmpty(text) ? '' : String(text).replace(/[\/\{}:;#%\*\?\\\^\&]/g, '_');
         },
         _readFiles: function (files) {
             this.reader = new FileReader();
@@ -3326,7 +3327,8 @@
         resizeDefaultImageType: 'image/jpeg',
         minFileSize: 0,
         maxFileSize: 0,
-        maxFilePreviewSize: 25600, // 25 MB
+        //最大可以预览的大小，会影响加载事件
+        maxFilePreviewSize: 3560000, // 3 GB
         minFileCount: 0,
         maxFileCount: 0,
         validateInitialCount: false,
