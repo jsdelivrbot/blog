@@ -1768,9 +1768,10 @@
         },
         _uploadExtra: function (previewId, index) {
             var self = this, data = self._getExtraData(previewId, index);
-            if (data.length === 0) {
-                return;
-            }
+            // if (data.length === 0) {
+            //     return;
+            // }
+            // 原始代码有bug
             $.each(data, function (key, value) {
                 self.formdata.append(key, value);
             });
