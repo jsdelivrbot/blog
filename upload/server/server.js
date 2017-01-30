@@ -7,6 +7,7 @@ var log4js_config = require("./logger.json");
 log4js.configure(log4js_config);
 var fs = require('fs');
 
+
 //直接发送index.html后，会出现css样式等找不到的问题，因为没有设置public路径
 app.use(express.static(path.resolve(__dirname,"../")));
 
@@ -61,6 +62,7 @@ function getFileContent(jsonPath,callback) {
             }
         }
     );
+    logger.info("readFile finish");
 }
 
 
@@ -83,13 +85,49 @@ function saveData(jsonPath,req)
                 logger.info("write into " + jsonPath + " successfully:" + JSON.stringify(data));
             }
         });
+        logger.info("write file finish");
     });
-}    
-//获取客户端的信息并输出到json文件中
+} 
 
+var jsonPath = path.resolve("./uploads/file.json");
+
+function createJsonFile()
+{
+    //如果文件不存在
+    if (false === fs.existsSync(jsonPath))
+    {
+        var str = "{\"fileInfos\":[]}";
+        fs.writeFileSync(jsonPath,str);
+        logger.info("write info " + jsonPath + " with data :" + str);
+    }
+    else
+    {
+        logger.info(jsonPath + " exist");
+    }
+}
+createJsonFile();
+
+var jsonFile = require(jsonPath);
+
+//获取客户端的信息并输出到json文件中
 app.post('/file', function(req, res, next){
-    var jsonPath = path.resolve("./uploads/file.json");
-    saveData(jsonPath,req);
+    
+    //当前流程上的问题没有解决，采用追加的方式来规避
+    //saveData(jsonPath,req);
+    var jsonData = req.body;
+    jsonData["服务器存储文件名"] = req.file.filename;
+    jsonFile.fileInfos.push(jsonData);
+    fs.writeFile(jsonPath,JSON.stringify(jsonFile),function(err)
+    {
+        if(err)
+        {
+            logger.error("write into " + jsonPath + " error:" + err);
+        }
+        else
+        {
+            logger.info("write into " + jsonPath + " successfully:" + JSON.stringify(jsonFile));
+        }
+    });
     next();
 });
 
@@ -98,6 +136,7 @@ app.post('/file', function(req, res){
   var json = {};
   var str = JSON.stringify(json);
   res.send(str);
+  logger.info("send response finish");
   
 });
 app.listen(3000);

@@ -52,10 +52,10 @@ $("#file-5").fileinput({
         uploadAsync: true,
         // 允许上传 视频，音频，pdf文档
         allowedFileTypes: ["audio", "video","pdf"],
-        showBrowse: false,
+        showBrowse: true,
         //设置上传文件大小不能大于3G,系统本身没什么限制，可以更改（注意同步修改maxFilePreviewSize，不然大于3G的文件不能预览）
         maxFileSize:3560000,
-        browseOnZoneClick: true,
+        browseOnZoneClick: false,
         //设置上传携带的参数
         uploadExtraData: function(previewId, index)
         {
