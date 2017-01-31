@@ -30,12 +30,12 @@
       <th>文件大小</th>  
 
       <th>最后修改时间</th>  
+      
+      <th>标题</th> 
 
       <th>作者</th>  
 
       <th>简介</th>  
-
-      <th>关键字</th>  
 
       <th>备注</th>  
 
@@ -71,17 +71,17 @@ $("#file-5").fileinput({
                 var fileName = tdArr.eq(0).text();//文件名
                 var fileSize = tdArr.eq(1).text();//文件大小
                 var fileTime = tdArr.eq(2).text();//文件修改时间
-                var author = tdArr.eq(3).find("textarea").val();//作者
-                var summry = tdArr.eq(4).find("textarea").val();//简介
-                var keyWord = tdArr.eq(5).find("textarea").val();//关键字
+                var title = tdArr.eq(3).find("textarea").val();//标题
+                var author = tdArr.eq(4).find("textarea").val();//作者
+                var summry = tdArr.eq(5).find("textarea").val();//简介
                 var remark = tdArr.eq(6).find("textarea").val();//备注
                 jsonData =  {
                    "文件名" : fileName,
                    "文件大小": fileSize,
                    "最后修改时间": fileTime,
+                   "标题":title,
                    "作者":author,
                    "简介":summry,
-                   "关键字":keyWord,
                    "备注":remark
 
                 };

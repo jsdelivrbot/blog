@@ -1,11 +1,13 @@
 var express = require('express');
 var app = express();
 var path = require("path");
-var upload = require("./multerUtils");
+var upload = require("./multerUtils").upload;
+var format = require("./multerUtils").format;
 var log4js = require("log4js");
 var log4js_config = require("./logger.json");
 log4js.configure(log4js_config);
 var fs = require('fs');
+var json2html = require('node-json2html');
 
 
 //直接发送index.html后，会出现css样式等找不到的问题，因为没有设置public路径
@@ -116,6 +118,9 @@ app.post('/file', function(req, res, next){
     //saveData(jsonPath,req);
     var jsonData = req.body;
     jsonData["服务器存储文件名"] = req.file.filename;
+    Date.prototype.Format = format;
+    jsonData["上传时间"] = new Date().Format("yyyy-MM-dd hh:mm:ss");
+    
     jsonFile.fileInfos.push(jsonData);
     fs.writeFile(jsonPath,JSON.stringify(jsonFile),function(err)
     {
@@ -138,5 +143,11 @@ app.post('/file', function(req, res){
   res.send(str);
   logger.info("send response finish");
   
+});
+
+app.get('/index',function(req,res)
+{
+    app.use(express.static(path.resolve(__dirname,"./fileView")));
+    res.sendfile(path.resolve("./fileView/index.html"));
 });
 app.listen(3000);

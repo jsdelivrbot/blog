@@ -56,4 +56,5 @@ var upload = multer({
     storage: storage
 });
 
-module.exports = upload;
+module.exports.upload = upload;
+module.exports.format = Date.prototype.Format;
