@@ -9,8 +9,11 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class fileService 
 {
+    //使用单例模式，确保每次数据还能保存
+    static instance: fileService;
     constructor(private http: Http)
     {
+         return fileService.instance = fileService.instance || this;
     }
 
     videos : fileInfo[] = [];
@@ -19,24 +22,14 @@ export class fileService
 
     private fileURL = "./uploads/file.json";
 
-    /**
-     * 该方法用于从json文件中获取符合条件的信息，不传入参数代表全量信息
-     * 
-     * @param {string} [type] 类型可选
-     * @param {string} [keyWord] 关键字用于搜索可选
-     * @returns {fileInfo[]} 返回包含所有文件的信息
-     * 
-     * @memberOf fileService
-     */
 
-    getFiles(type ?: string, keyWord ?: string) : Observable<fileInfo[]>
+    getAllFiles() : Observable<fileInfo[]>
     {
-        //返回全量的数据
-        if (type === undefined && keyWord === undefined)
-        {
-            return this.http.get(this.fileURL).map(this.extractData).map(this.convertJsonToArray);
-        }
+        return this.http.get(this.fileURL).map(this.extractData).map(this.convertJsonToArray);
+    }
 
+    getFiles(type : string, keyWord : string) : fileInfo[]
+    {
         if (type !== undefined)
         {
             //两个均不为空
@@ -46,15 +39,76 @@ export class fileService
             }
             else
             {
-
+                switch(type)
+                {
+                    case "全部":
+                    {
+                        break;
+                    }
+                    case "视频":
+                    {
+                        break;
+                    }
+                    case "文档":
+                    {
+                        break;
+                    }
+                    case "其他":
+                    {
+                        break;
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
             }
+            return;
         }
         else
         {
-            //只剩下keyWork不为空的场景
+            //只剩下keyWord不为空的场景
+            let result : fileInfo[] = [];
+            this.videos.forEach(video => {
+                if(this.search(video,keyWord))
+                {
+                    result.push(new fileInfo(video));
+                }
+            });
 
+            this.pdfs.forEach(pdf => {
+                if(this.search(pdf,keyWord))
+                {
+                    result.push(new fileInfo(pdf));
+                }
+            });
+
+            this.others.forEach(other => {
+                if(this.search(other,keyWord))
+                {
+                    result.push(new fileInfo(other));
+                }
+            });
+
+            return result;
         }
-        return ;
+        
+    }
+
+    
+    /**
+     * 搜索该对象中是否包含用户关心的关键字
+     * 
+     * @private
+     * @param {fileInfo} obj 待搜索对象
+     * @param {string} key  被包含关键字
+     * @returns {boolean} 是否包含关键字
+     * 
+     * @memberOf fileService
+     */
+    private search(obj : fileInfo, key:string) : boolean
+    {
+        return true;
     }
 
     private convertJsonToArray(files : Array<any>)
