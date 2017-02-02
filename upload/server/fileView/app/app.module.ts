@@ -2,16 +2,20 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }   from './app.component';
 import { FormsModule} from '@angular/forms'
-import { RouterModule } from '@angular/router'
-
+import { VideoComponent } from './video.component';
+import { fileService } from './file.Service';
+import { HttpModule,JsonpModule } from '@angular/http';   
 
 
 @NgModule({
     imports:      [ BrowserModule,
     FormsModule,
+    HttpModule,
+    JsonpModule
      ],
-    declarations: [ AppComponent ],
+    declarations: [ AppComponent,VideoComponent ],
     bootstrap:    [ AppComponent ],
+    providers:    [fileService]
 })
 
 

@@ -30,15 +30,15 @@ var storage = multer.diskStorage({
         //根据不同的文件类型，存储到不同的目录中
         if (file.mimetype === "application/pdf")
         {
-            cb(null, "./uploads/pdf")
+            cb(null, "./fileView/uploads/pdf")
         }
         else if ((file.mimetype === "video/mp4"))
         {
-            cb(null, "./uploads/video")
+            cb(null, "./fileView/uploads/video")
         }
         else
         {
-            cb(null,"./uploads/other");
+            cb(null,"./fileView/uploads/other");
         }
         
     }, 

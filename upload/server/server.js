@@ -91,14 +91,15 @@ function saveData(jsonPath,req)
     });
 } 
 
-var jsonPath = path.resolve("./uploads/file.json");
+//在Angular2中暂没有找到好的方法，先放到Angular2的文件夹中
+var jsonPath = path.resolve("./fileView/uploads/file.json");
 
 function createJsonFile()
 {
     //如果文件不存在
     if (false === fs.existsSync(jsonPath))
     {
-        var str = "{\"fileInfos\":[]}";
+        var str = "{\"fileInfos\":{\"video\": [],\"pdf\":[],\"other\":[]}}";
         fs.writeFileSync(jsonPath,str);
         logger.info("write info " + jsonPath + " with data :" + str);
     }
@@ -120,8 +121,26 @@ app.post('/file', function(req, res, next){
     jsonData["服务器存储文件名"] = req.file.filename;
     Date.prototype.Format = format;
     jsonData["上传时间"] = new Date().Format("yyyy-MM-dd hh:mm:ss");
+    jsonData["文件类型"] = req.file.mimetype;
+    switch(req.file.mimetype)
+    {
+        case "video/mp4":
+        {
+            jsonFile.fileInfos.video.push(jsonData);
+            break;
+        }
+        case "application/pdf":
+        {
+            jsonFile.fileInfos.pdf.push(jsonData);
+            break;
+        }
+        default:
+        {
+            jsonFile.fileInfos.other.push(jsonData);
+            break;
+        }
+    }
     
-    jsonFile.fileInfos.push(jsonData);
     fs.writeFile(jsonPath,JSON.stringify(jsonFile),function(err)
     {
         if(err)

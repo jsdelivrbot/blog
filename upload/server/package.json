@@ -3,9 +3,9 @@
    "description": "file server",
    "version": "0.0.1",
    "scripts":{
-       "prestart":"mkdirp uploads/video && mkdirp uploads/pdf && mkdirp uploads/other && mkdirp logs ",
+       "prestart":"mkdirp fileView/uploads/video && mkdirp fileView/uploads/pdf && mkdirp fileView/uploads/other && mkdirp logs ",
        "init" : "cd ./fileView/ && npm start && cd ..",
-       "start": "./node_modules/.bin/pm2 -f start server.js --watch  && npm run init"
+       "start": "./node_modules/.bin/pm2 -f start server.js && npm run init"
    },
    "dependencies": {
       "express": "3.x",
@@ -16,6 +16,6 @@
    "devDependencies": {
       "concurrently": "^2.0.0",
       "mkdirp":"0.5.1",
-      "pm2" : "^2.3.0"
+      "pm2" : "next"
    }
 }
