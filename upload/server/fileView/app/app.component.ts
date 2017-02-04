@@ -9,11 +9,12 @@ import { OnInit } from '@angular/core';
 import './rxjs-operators';
 import { Observable }       from 'rxjs/Observable';
 
+
 @Component({
     selector: 'my-app',
     template: `
         <div>
-        <input id="kw" disabled (keyup)="search(kw.value) "/>
+        <input id="kw" #term (keyup)="search(term.value) "/>
         <label *ngFor="let item of types">
         <input type="radio" disabled name="options">
             {{item}}
@@ -65,15 +66,22 @@ export class AppComponent implements OnInit{
 
     ngOnInit() : void
     {
-        this.fileservice.getAllFiles().subscribe(
+        this.fileservice.getFiles().subscribe(
             files => this.files = files,
             error => this.errorMessage = <any>error 
 
         );
+        // this.fileservice.getFiles().then(
+        //         files => this.files = files,
+        //     error => this.errorMessage = <any>error
+        // );
     }
 
     search (term: string) {
-        this.files = this.fileservice.getFiles(undefined,term);
+        this.fileservice.getFiles(undefined,term).subscribe(
+                files => this.files = files,
+            error => this.errorMessage = <any>error
+        );
   }
 
  };

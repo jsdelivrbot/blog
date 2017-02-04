@@ -3,17 +3,21 @@ import { Injectable } from '@angular/core';
 import { fileInfo } from './fileInfo';
 //import JsonInfo from "files.json"; 
 import { Http,Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+// Include all operators
+import 'rxjs/Rx';
+
+// Include all operators and import the Observable class
+import {Observable} from 'rxjs/Observable';
+
+// Include a particular operator
+import 'rxjs/add/operator/map';
 
 
 @Injectable()
 export class fileService 
 {
-    //使用单例模式，确保每次数据还能保存
-    static instance: fileService;
     constructor(private http: Http)
     {
-         return fileService.instance = fileService.instance || this;
     }
 
     videos : fileInfo[] = [];
@@ -23,19 +27,20 @@ export class fileService
     private fileURL = "./uploads/file.json";
 
 
-    getAllFiles() : Observable<fileInfo[]>
+    getFiles(type ?: string, keyWord ?: string) : Observable<fileInfo[]>
     {
-        return this.http.get(this.fileURL).map(this.extractData).map(this.convertJsonToArray);
-    }
-
-    getFiles(type : string, keyWord : string) : fileInfo[]
-    {
+        //当都为空时，进行数据访问，并进行缓存
+        if (type === undefined && keyWord === undefined)
+        {
+            // 进行数据的缓存，将this指针传递给extraData参数，防止出现this指针被MapSubcrict替换
+            return this.http.get(this.fileURL).map(this.extractData,this).
+            map(this.convertJsonToArray,this).share();
+        }
         if (type !== undefined)
         {
             //两个均不为空
             if(keyWord !== undefined)
             {
-
             }
             else
             {
@@ -68,7 +73,13 @@ export class fileService
         else
         {
             //只剩下keyWord不为空的场景
-            let result : fileInfo[] = [];
+            return this.getFilesByKeyWord(keyWord);
+        }
+    }
+
+    getFilesByKeyWord(keyWord : string) : Observable<fileInfo[]>
+    {
+        let result : fileInfo[] = [];
             this.videos.forEach(video => {
                 if(this.search(video,keyWord))
                 {
@@ -90,11 +101,8 @@ export class fileService
                 }
             });
 
-            return result;
-        }
-        
+         return Observable.of(result);
     }
-
     
     /**
      * 搜索该对象中是否包含用户关心的关键字
@@ -108,7 +116,32 @@ export class fileService
      */
     private search(obj : fileInfo, key:string) : boolean
     {
-        return true;
+        if(obj["作者"].search(key) != -1)
+        {
+            return true;
+        }
+        if(obj["文件名"].search(key)!= -1)
+        {
+            return true;
+        }
+        if(obj["备注"].search(key)!= -1)
+        {
+            return true;
+        }
+        if(obj["简介"].search(key)!= -1)
+        {
+            return true;
+        }
+        if(obj["标题"].search(key)!= -1)
+        {
+            return true;
+        }
+        if(obj["上传时间"].search(key)!= -1)
+        {
+            return true;
+        }
+        return false;
+        
     }
 
     private convertJsonToArray(files : Array<any>)
@@ -178,5 +211,6 @@ export class fileService
         }
         console.error(errMsg);
         return Observable.throw(errMsg);
+        //return Promise.reject(errMsg);
     }
 }
