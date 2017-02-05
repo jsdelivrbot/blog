@@ -14,20 +14,23 @@ import { Subject }          from 'rxjs/Subject';
     selector: 'my-app',
     template: `
         <div>
-        <input id="kw" #term (keyup)="search(term.value) " (focus)="enter=true" (focusout)="enter=false"/>
+        <input id="kw" #term (keyup)="search(term.value) " (focus)="enter=true" 
+        (focusout)="enter=false" 
+        placeholder="标题，作者，简介，备注，文件名，文件类型，上传时间"/>
         <label *ngFor="let item of types">
-        <input type="radio" disabled name="options">
-            {{item}}
+        <input type="checkbox" [value]=item.value [checked]=item.checked [disabled]=item.disabled 
+        (click)="changeState(item.value,item.checked)">
+            {{item.display}}
         </label>
         <div class="search-input" *ngIf="enter">
-        <div *ngFor="let file of files" class="search-result" >
+        <div *ngFor="let file of (files|typePipe:types)" class="search-result" >
             {{file.title}} | ({{file.author}} @ {{file.uploadTime}})
         </div>
         </div>
         
         </div>
         <div>
-        <Video-Info *ngFor="let file of files" [video] = "file"></Video-Info>
+        <Video-Info *ngFor="let file of (files|typePipe:types)" [video] = "file"></Video-Info>
         </div>
     `,
     styles: [`
@@ -84,8 +87,56 @@ import { Subject }          from 'rxjs/Subject';
 
 export class AppComponent implements OnInit{
 
-    types : string[] = ["全部","视频","文档","其他"];
-    
+    changeState(value:string,checked:boolean) :void
+    {
+        //优先修改对应的checkbox的状态
+        this.types.forEach(type => {
+            if(type.value === value)
+            {
+                type.checked = !checked;
+                return;
+            }
+        });
+
+        //All被选中时，其他都置灰，checkbox清空
+        if(value === 'All' && !checked === true)
+        {
+            this.types.forEach(type => {
+            if(type.value !== 'All')
+            {
+                type.checked = false;
+                type.disabled = true;
+            }
+        });
+        }
+
+        //All被不选中时，其他都ok
+        if(value === 'All' && !checked === false)
+        {
+            this.types.forEach(type => {
+            if(type.value !== 'All')
+            {
+                type.disabled = false;
+            }
+            if(type.value === 'video/mp4')
+            {
+                type.checked = true;
+            }
+        });
+        }
+
+
+
+
+    }
+
+    types : any[] = [
+    { value: 'All', display: '全部',checked:true,disabled:false },
+    { value: 'video/mp4', display: '视频', checked:false,disabled:true},
+    { value: 'application/pdf', display: '文档',checked:false,disabled:true },
+    { value: 'other', display: '音频' ,checked:false,disabled:true}
+    ];
+
     files : fileInfo[] = [];
     enter : boolean = false;
     //files : Observable <fileInfo[]>;

@@ -120,10 +120,6 @@ export class fileService
         {
             return true;
         }
-        if(obj["文件名"].search(key)!= -1)
-        {
-            return true;
-        }
         if(obj["备注"].search(key)!= -1)
         {
             return true;

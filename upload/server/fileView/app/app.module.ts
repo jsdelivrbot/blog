@@ -5,7 +5,7 @@ import { FormsModule} from '@angular/forms'
 import { VideoComponent } from './video.component';
 import { fileService } from './file.Service';
 import { HttpModule,JsonpModule } from '@angular/http';   
-
+import { TypePipe } from './type.pipe';
 
 @NgModule({
     imports:      [ BrowserModule,
@@ -13,7 +13,7 @@ import { HttpModule,JsonpModule } from '@angular/http';
     HttpModule,
     JsonpModule
      ],
-    declarations: [ AppComponent,VideoComponent ],
+    declarations: [ AppComponent,VideoComponent,TypePipe ],
     bootstrap:    [ AppComponent ],
     providers:    [fileService]
 })

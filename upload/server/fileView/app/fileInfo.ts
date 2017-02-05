@@ -41,6 +41,7 @@ export class fileInfo
                 default:
                 {
                     this.prefix = "./uploads/other/";
+                    this.fileType = "other";
                     break;
                 }
             }
