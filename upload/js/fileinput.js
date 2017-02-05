@@ -1643,7 +1643,12 @@
         _ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, previewId, index) {
             var self = this, settings;
             self._raise('filepreajax', [previewId, index]);
-            self._uploadExtra(previewId, index);
+            var result = self._uploadExtra(previewId, index);
+            if (typeof result === "string") {
+                self._resetErrors();
+                self._showUploadError(result);
+                return;
+            }
             settings = $.extend(true, {}, {
                 xhr: function () {
                     var xhrobj = $.ajaxSettings.xhr();
@@ -1768,8 +1773,10 @@
         },
         _uploadExtra: function (previewId, index) {
             var self = this, data = self._getExtraData(previewId, index);
-            // if (data.length === 0) {
-            //     return;
+
+            if (typeof data === "string") {
+            return data;
+            }
             // }
             // 原始代码有bug
             $.each(data, function (key, value) {

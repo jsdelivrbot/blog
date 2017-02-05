@@ -64,6 +64,7 @@ $("#file-5").fileinput({
             //反馈给服务端的json数据
             var jsonData = {};
             //找到对应匹配的字段的所有行，正常应该只有1个，除非反复增加同样的,则会覆盖，返回最后一个
+            var error = "";
             $("td:contains("  + str + ")").parent().each(function()
             {
                 //取出所有的列
@@ -72,9 +73,29 @@ $("#file-5").fileinput({
                 var fileSize = tdArr.eq(1).text();//文件大小
                 var fileTime = tdArr.eq(2).text();//文件修改时间
                 var title = tdArr.eq(3).find("textarea").val();//标题
+                if ("" == title)
+                {
+                    error = "上传错误：请注意别忽悠，输入《" + fileName + "》的标题（中文）";
+                    return -1;
+                }
                 var author = tdArr.eq(4).find("textarea").val();//作者
+                if ("" == author)
+                {
+                    error = "上传错误：请注意别忽悠，输入《" + fileName + "》的作者（中文姓名+工号）";
+                    return -1;
+                }
                 var summry = tdArr.eq(5).find("textarea").val();//简介
+                if ("" == summry)
+                {
+                    error = "上传错误：请注意别忽悠，输入《" + fileName + "》的简介（关联的issue，背景等）";
+                    return -1;
+                }
                 var remark = tdArr.eq(6).find("textarea").val();//备注
+                if ("" == remark)
+                {
+                    error = "上传错误：请注意别忽悠，输入《" + fileName + "》的备注（适合的读者，推荐指数等）";
+                    return -1;
+                }
                 jsonData =  {
                    "文件名" : fileName,
                    "文件大小": fileSize,
@@ -86,6 +107,10 @@ $("#file-5").fileinput({
 
                 };
             });
+            if (error != "")
+            {
+                return error;
+            }
             return jsonData;
             
         },
