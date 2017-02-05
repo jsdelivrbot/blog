@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/10/28 0028.
  */
 import { Component } from '@angular/core';
-import { VideoComponent } from './video.component';
+import { FileComponent } from './file.component';
 import { fileInfo } from './fileInfo';
 import { fileService } from './file.Service';
 import { OnInit } from '@angular/core';
@@ -30,7 +30,7 @@ import { Subject }          from 'rxjs/Subject';
         
         </div>
         <div>
-        <Video-Info *ngFor="let file of (files|typePipe:types)" [video] = "file"></Video-Info>
+        <file-Info *ngFor="let file of (files|typePipe:types)" [_file] = "file"></file-Info>
         </div>
     `,
     styles: [`
@@ -118,7 +118,7 @@ export class AppComponent implements OnInit{
             {
                 type.disabled = false;
             }
-            if(type.value === 'video/mp4')
+            if(type.value === 'mp4')
             {
                 type.checked = true;
             }
@@ -132,8 +132,8 @@ export class AppComponent implements OnInit{
 
     types : any[] = [
     { value: 'All', display: '全部',checked:true,disabled:false },
-    { value: 'video/mp4', display: '视频', checked:false,disabled:true},
-    { value: 'application/pdf', display: '文档',checked:false,disabled:true },
+    { value: 'mp4', display: '视频', checked:false,disabled:true},
+    { value: 'pdf', display: '文档',checked:false,disabled:true },
     { value: 'other', display: '音频' ,checked:false,disabled:true}
     ];
 

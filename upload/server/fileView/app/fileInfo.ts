@@ -31,11 +31,13 @@ export class fileInfo
                 case "video/mp4":
                 {
                     this.prefix = "./uploads/video/";
+                    this.fileType = "mp4";
                     break;
                 }
                 case "application/pdf":
                 {
                     this.prefix = "./uploads/pdf/";
+                    this.fileType = "pdf";
                     break;
                 }
                 default:

@@ -2,10 +2,11 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }   from './app.component';
 import { FormsModule} from '@angular/forms'
-import { VideoComponent } from './video.component';
+import { FileComponent } from './file.component';
 import { fileService } from './file.Service';
 import { HttpModule,JsonpModule } from '@angular/http';   
 import { TypePipe } from './type.pipe';
+import { EmbedChromeFix } from './file.component';
 
 @NgModule({
     imports:      [ BrowserModule,
@@ -13,7 +14,7 @@ import { TypePipe } from './type.pipe';
     HttpModule,
     JsonpModule
      ],
-    declarations: [ AppComponent,VideoComponent,TypePipe ],
+    declarations: [ AppComponent,FileComponent,TypePipe,EmbedChromeFix],
     bootstrap:    [ AppComponent ],
     providers:    [fileService]
 })

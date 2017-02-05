@@ -3,35 +3,75 @@ import {Component,Input} from '@angular/core';
 import { fileInfo } from './fileInfo';
 //import path = require('path');
 
+//修复embed的bug 参考https://plnkr.co/edit/ChdyzyPLxYqU94cVK9Qm?p=preview
+import {Directive, NgModule, ElementRef, Renderer, OnInit} from '@angular/core'
+import {BrowserModule} from '@angular/platform-browser'
+import {DomSanitizer} from "@angular/platform-browser";
+@Component({
+  selector: 'my-embed',
+  template: `<embed width="100%" height="200" type='application/pdf'>`
+})
+export class EmbedChromeFix {
+  @Input() src;
+  
+  constructor(private renderer: Renderer,  private elRef : ElementRef) { }
+
+  ngOnChanges() {
+    const wrapper = this.elRef.nativeElement;
+    const embed = wrapper.firstElementChild;
+    if(!embed) return;
+
+    this.renderer.setElementProperty(embed, 'src', this.src);
+    this.renderer.setElementProperty(embed, 'outerHTML', embed.outerHTML);
+  }
+}
+
+
+
 @Component(
     {
-        selector: 'Video-Info',
+        selector: 'file-Info',
         template: `
     <div class="file-preview-frame">
             <div class="v-meta v-meta-album">
                 <p class="item long">
-                <em class="label">标题</em>：<a class="important"><b>{{video.title}}</b></a>
+                <em class="label">标题</em>：<a class="important"><b>{{_file.title}}</b></a>
              </p>
             </div>
             <div class="v-meta v-meta-album">
             <p class="item short">
-              <em class="label">作者</em>：<a>{{video.author}}</a>
+              <em class="label">作者</em>：<a>{{_file.author}}</a>
              </p>
             <p class="item short">
-              <em class="label">上传</em>：<a>{{video.uploadTime}}</a>
+              <em class="label">上传</em>：<a>{{_file.uploadTime}}</a>
              </p> 
             </div>
-            <video class="kv-preview-data" width="100%" height="200" controls="">
-                <source src={{video.storeFileName}} type="video/mp4">
+
+            <div [ngSwitch]="_file.fileType">
+
+            <video *ngSwitchCase="'mp4'" class="kv-preview-data" width="100%" height="200" controls="">
+                <source src={{_file.storeFileName}} type="video/mp4">
             </video>
+
+            <my-embed *ngSwitchCase="'pdf'" [src]= "_file.storeFileName">
+            </my-embed>
+
+            <video *ngSwitchCase="'other'" class="kv-preview-data" width="100%" height="200" poster="audio-spectrum-o.gif" controls="">
+                <source src={{_file.storeFileName}} type="audio/mp3">
+            </video>
+
+            <video *ngSwitchDefault class="kv-preview-data" width="100%" height="200" controls="">
+                <source src={{_file.storeFileName}} type="video/mp4">
+            </video>
+            </div>
              <div class="v-meta v-meta-album">
                 <p class="item long"  (click)="print()">
-                <em class="label" >简介</em>：<a>{{showData(video.summry)}}</a> <a *ngIf="show(video.summry)">更多</a>
+                <em class="label" >简介</em>：<a>{{showData(_file.summry)}}</a> <a *ngIf="show(_file.summry)">更多</a>
              </p>
             </div>
             <div class="v-meta v-meta-album">
                 <p class="item long">
-                <em class="label">备注</em>：<a class="remark">{{video.remark}}</a>
+                <em class="label">备注</em>：<a class="remark">{{_file.remark}}</a>
              </p>
             </div>
     </div> 
@@ -123,9 +163,9 @@ a {
 )
 
 
-export class VideoComponent{
+export class FileComponent{
 
-@Input() video : fileInfo;
+@Input() _file : fileInfo;
 
 path : string;
 DATA_LEN : number  = 80;
