@@ -116,23 +116,23 @@ export class fileService
      */
     private search(obj : fileInfo, key:string) : boolean
     {
-        if(obj["作者"].search(key) != -1)
+        if(obj["作者"].search(new RegExp(key,'i')) != -1)
         {
             return true;
         }
-        if(obj["备注"].search(key)!= -1)
+        if(obj["备注"].search(new RegExp(key,'i')) != -1)
         {
             return true;
         }
-        if(obj["简介"].search(key)!= -1)
+        if(obj["简介"].search(new RegExp(key,'i')) != -1)
         {
             return true;
         }
-        if(obj["标题"].search(key)!= -1)
+        if(obj["标题"].search(new RegExp(key,'i')) != -1)
         {
             return true;
         }
-        if(obj["上传时间"].search(key)!= -1)
+        if(obj["上传时间"].search(new RegExp(key,'i')) != -1)
         {
             return true;
         }

@@ -16,7 +16,7 @@ import { Subject }          from 'rxjs/Subject';
         <div>
         <input id="kw" #term (keyup)="search(term.value) " (focus)="enter=true" 
         (focusout)="enter=false" 
-        placeholder="标题，作者，简介，备注，文件名，文件类型，上传时间"/>
+        placeholder="标题，作者，简介，备注，上传时间"/>
         <label *ngFor="let item of types">
         <input type="checkbox" [value]=item.value [checked]=item.checked [disabled]=item.disabled 
         (click)="changeState(item.value,item.checked)">
