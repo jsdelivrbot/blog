@@ -8,7 +8,7 @@ Step2: 点击"+" 配置AddJS,举例
 ```
 url：https://github.com/wenbaofu*
 regexp:选中
-Script:https://rawgit.com/wenbaofu/blog/master/search/search.js
+Script:https://cdn.jsdelivr.net/gh/wenbaofu/blog/search/search.js
 ```
 如下图
 ![image](https://cloud.githubusercontent.com/assets/20511885/22293341/2897fc00-e34a-11e6-8e52-4ec21e592ee9.png)

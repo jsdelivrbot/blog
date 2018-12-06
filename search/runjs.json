@@ -3,6 +3,6 @@
 		"checked": true,
 		"reg": true,
 		"req": "https://github.com/wenbaofu*",
-		"res": "https://rawgit.com/wenbaofu/blog/master/search/search.js"
+		"res": "https://cdn.jsdelivr.net/gh/wenbaofu/blog/search/search.js"
 	}
 ]
